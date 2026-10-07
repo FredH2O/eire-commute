@@ -1,5 +1,7 @@
+import type { LuasData } from "@/types/luas";
+
 type StopResultsProps = {
-  results: any;
+  results: LuasData;
 };
 
 export default function StopResults({ results }: StopResultsProps) {

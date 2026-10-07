@@ -1,10 +1,14 @@
 "use client";
 
 import { useState, type ChangeEvent } from "react";
+import type { LuasData } from "@/types/luas";
 
-export default function SearchStop() {
+type SearchStopProps = {
+  onResults: (data: LuasData) => void;
+};
+
+export default function SearchStop({ onResults }: SearchStopProps) {
   const [stop, setStop] = useState("");
-  const [results, setResults] = useState(null);
 
   async function handleSearch() {
     if (!stop) return;
@@ -12,8 +16,7 @@ export default function SearchStop() {
     const response = await fetch(`/api/luas?stop=${stop}`);
     const data = await response.json();
 
-    console.log(data);
-    setResults(data);
+    onResults(data);
   }
 
   function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
