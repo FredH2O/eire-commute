@@ -12,10 +12,12 @@ type SearchStopProps = {
 export default function SearchStop({ onResults }: SearchStopProps) {
   const [stop, setStop] = useState("");
 
-  async function handleSearch() {
-    if (!stop) return;
+  async function handleSearch(value: string) {
+    setStop(value);
 
-    const response = await fetch(`/api/luas?stop=${stop}`);
+    if (!value) return;
+
+    const response = await fetch(`/api/luas?stop=${value}`);
     const data = await response.json();
 
     onResults(data);
@@ -23,13 +25,13 @@ export default function SearchStop({ onResults }: SearchStopProps) {
 
   return (
     <div className="mx-auto mt-8 px-4">
-      <p className="mb-2 text-sm font-medium text-slate-300">Select stop</p>
+      <p className="mb-2 text-sm font-medium text-slate-400">Select stop</p>
 
       <div className="flex gap-2">
         <select
           className="min-w-0 flex-1 rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none focus:border-slate-500"
           value={stop}
-          onChange={(event) => setStop(event.target.value)}
+          onChange={(event) => handleSearch(event.target.value)}
         >
           <option value="">Choose a stop</option>
 
@@ -39,14 +41,6 @@ export default function SearchStop({ onResults }: SearchStopProps) {
             </option>
           ))}
         </select>
-
-        <button
-          className="rounded-lg bg-emerald-500 px-5 py-3 font-medium text-slate-950 transition hover:bg-emerald-400"
-          type="button"
-          onClick={handleSearch}
-        >
-          Search
-        </button>
       </div>
     </div>
   );
