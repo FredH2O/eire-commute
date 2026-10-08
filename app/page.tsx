@@ -9,6 +9,8 @@ import type { LuasData } from "@/types/luas";
 
 export default function Home() {
   const [results, setResults] = useState<LuasData | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   function handleResults(data: LuasData) {
     setResults(data);
@@ -31,9 +33,17 @@ export default function Home() {
           </p>
         </div>
 
-        <SearchStop onResults={handleResults} />
+        <SearchStop
+          onResults={handleResults}
+          onError={setError}
+          onLoading={setLoading}
+        />
 
-        {results && <StopResults results={results} />}
+        {loading && <p>Loading departures..</p>}
+
+        {error && <p>{error}</p>}
+
+        {!loading && !error && results && <StopResults results={results} />}
       </section>
     </main>
   );

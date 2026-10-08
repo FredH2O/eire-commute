@@ -8,9 +8,15 @@ import { FiChevronDown } from "react-icons/fi";
 
 type SearchStopProps = {
   onResults: (data: LuasData) => void;
+  onLoading: (loading: boolean) => void;
+  onError: (error: string) => void;
 };
 
-export default function SearchStop({ onResults }: SearchStopProps) {
+export default function SearchStop({
+  onResults,
+  onLoading,
+  onError,
+}: SearchStopProps) {
   const [stop, setStop] = useState("");
 
   async function handleSearch(value: string) {
@@ -18,23 +24,38 @@ export default function SearchStop({ onResults }: SearchStopProps) {
 
     if (!value) return;
 
-    const response = await fetch(`/api/luas?stop=${value}`);
-    const data = await response.json();
+    onLoading(true);
 
-    onResults(data);
+    try {
+      const response = await fetch(`/api/luas?stop=${value}`);
+
+      if (!response.ok) {
+        throw new Error("Failed to load departures");
+      }
+
+      const data = await response.json();
+      onResults(data);
+    } catch (error) {
+      onError("Couldn't load departures. Please try again." + error);
+    } finally {
+      onLoading(false);
+    }
   }
 
   return (
     <div className="mx-auto mt-8 px-4">
-      <p className="mb-2 text-sm font-medium text-slate-400">Select stop</p>
+      <label htmlFor="luas-stop" className="text-sm font-medium text-slate-400">
+        Select stop
+      </label>
 
       <div className="relative flex gap-2 ">
         <select
+          id="luas-stop"
           className="min-w-0 cursor-pointer appearance-none px-4 py-3
           transition-all duration-150 flex-1 rounded-lg border
           border-slate-700 bg-slate-900  
           text-white outline-none focus:border-slate-500 
-          active:border-green-500 hover:bg-slate-800"
+          active:border-green-500 hover:bg-slate-800 focus:ring-2 focus:ring-slate-500"
           value={stop}
           onChange={(event) => handleSearch(event.target.value)}
         >
