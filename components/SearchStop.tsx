@@ -36,7 +36,8 @@ export default function SearchStop({
       const data = await response.json();
       onResults(data);
     } catch (error) {
-      onError("Couldn't load departures. Please try again." + error);
+      console.log(error);
+      onError("Couldn't load departures. Please try again.");
     } finally {
       onLoading(false);
     }
@@ -54,8 +55,8 @@ export default function SearchStop({
           className="min-w-0 cursor-pointer appearance-none px-4 py-3
           transition-all duration-150 flex-1 rounded-lg border
           border-slate-700 bg-slate-900  
-          text-white outline-none focus:border-slate-500 
-          active:border-green-500 hover:bg-slate-800 focus:ring-2 focus:ring-slate-500"
+          text-white outline-none active:border-green-500 hover:bg-slate-800 
+          focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
           value={stop}
           onChange={(event) => handleSearch(event.target.value)}
         >

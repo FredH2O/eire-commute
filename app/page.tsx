@@ -39,11 +39,26 @@ export default function Home() {
           onLoading={setLoading}
         />
 
-        {loading && <p>Loading departures..</p>}
+        {loading && (
+          <p role="status" className="mt-4 text-sm text-slate-400">
+            Loading departures..
+          </p>
+        )}
 
-        {error && <p>{error}</p>}
+        {error && (
+          <p role="alert" className="mt-4 text-sm text-red-400">
+            {error}
+          </p>
+        )}
 
-        {!loading && !error && results && <StopResults results={results} />}
+        {!loading && !error && results && (
+          <>
+            <p role="status" className="sr-only">
+              Departures loaded for {results.stopInfo["@_stop"]}.
+            </p>
+            <StopResults results={results} />
+          </>
+        )}
       </section>
     </main>
   );
