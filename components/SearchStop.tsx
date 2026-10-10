@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import type { LuasData } from "@/types/luas";
@@ -20,6 +20,21 @@ export default function SearchStop({
 }: SearchStopProps) {
   const [stop, setStop] = useState("");
   const router = useRouter();
+
+  // On first load, read ?stopID= from the URL and load that stopppp
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const stopFromUrl = params.get("stopID")?.toUpperCase();
+
+    if (!stopFromUrl) return;
+
+    const isRealStop = luasStop.some((item) => item.shortName === stopFromUrl);
+
+    if (isRealStop) {
+      handleSearch(stopFromUrl);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function handleSearch(value: string) {
     setStop(value);
@@ -72,9 +87,9 @@ export default function SearchStop({
         >
           <option value="">Choose a stop</option>
 
-          {luasStop.map((stop) => (
-            <option key={stop.shortName} value={stop.shortName}>
-              {stop.displayName}
+          {luasStop.map((item) => (
+            <option key={item.shortName} value={item.shortName}>
+              {item.displayName}
             </option>
           ))}
         </select>
