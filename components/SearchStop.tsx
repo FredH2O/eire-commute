@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import type { LuasData } from "@/types/luas";
 import { luasStop } from "@/data/luasStop";
@@ -18,9 +19,18 @@ export default function SearchStop({
   onError,
 }: SearchStopProps) {
   const [stop, setStop] = useState("");
+  const router = useRouter();
 
   async function handleSearch(value: string) {
     setStop(value);
+
+    const selectedStop = luasStop.find(
+      (pickedStop) => pickedStop.shortName === value,
+    );
+
+    if (selectedStop) {
+      router.replace(`/?stopID=${value}`, { scroll: false });
+    }
 
     if (!value) return;
 
