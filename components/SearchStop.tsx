@@ -77,7 +77,7 @@ export default function SearchStop({
       <div className="relative flex gap-2 ">
         <select
           id="luas-stop"
-          className="min-w-0 cursor-pointer appearance-none px-4 py-3
+          className="min-w-0 cursor-pointer appearance-none px-4 py-3 mt-2
           transition-all duration-150 flex-1 rounded-lg border
           border-slate-700 bg-slate-900  
           text-white outline-none active:border-green-500 hover:bg-slate-800 

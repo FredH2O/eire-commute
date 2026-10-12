@@ -3,15 +3,27 @@ import { XMLParser } from "fast-xml-parser";
 export async function GET(request: Request) {
   const stop = new URL(request.url).searchParams.get("stop");
 
-  console.log("Requested stop:", stop);
+  if (!stop || !/^[a-zA-Z]{2,6}$/.test(stop)) {
+    return Response.json({ error: "Invalid stop" }, { status: 400 });
+  }
 
-  const response = await fetch(
-    `http://luasforecasts.rpa.ie/xml/get.ashx?action=forecast&stop=${stop}&encrypt=false`,
-  );
+  try {
+    // fetch data
+    const response = await fetch(
+      `http://luasforecasts.rpa.ie/xml/get.ashx?action=forecast&stop=${encodeURIComponent(stop)}&encrypt=false`,
+      { cache: "no-store" },
+    );
 
-  const xml = await response.text();
+    if (!response.ok) {
+      return Response.json({ error: "Luas API failed" }, { status: 502 });
+    }
 
-  const json = new XMLParser({ ignoreAttributes: false }).parse(xml);
+    const xml = await response.text();
 
-  return Response.json(json);
+    const json = new XMLParser({ ignoreAttributes: false }).parse(xml);
+
+    return Response.json(json);
+  } catch {
+    return Response.json({ error: "Could not reach Luas" }, { status: 502 });
+  }
 }
