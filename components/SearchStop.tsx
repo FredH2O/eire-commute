@@ -8,7 +8,7 @@ import { luasStop } from "@/data/luasStop";
 import { FiChevronDown } from "react-icons/fi";
 
 type SearchStopProps = {
-  onResults: (data: LuasData) => void;
+  onResults: (data: LuasData | null) => void;
   onLoading: (loading: boolean) => void;
   onError: (error: string) => void;
 };
@@ -39,6 +39,16 @@ export default function SearchStop({
   async function handleSearch(value: string) {
     setStop(value);
 
+    // reset when -choose a stop- is selected
+
+    if (!value) {
+      router.replace("/", { scroll: false });
+      onResults(null);
+      onError("");
+      onLoading(false);
+      return;
+    }
+
     const selectedStop = luasStop.find(
       (pickedStop) => pickedStop.shortName === value,
     );
@@ -46,8 +56,6 @@ export default function SearchStop({
     if (selectedStop) {
       router.replace(`/?stopID=${value}`, { scroll: false });
     }
-
-    if (!value) return;
 
     onLoading(true);
 
@@ -74,11 +82,11 @@ export default function SearchStop({
         Select stop
       </label>
 
-      <div className="relative flex gap-2 ">
+      <div className="relative flex gap-2 mt-2">
         <select
           id="luas-stop"
-          className="min-w-0 cursor-pointer appearance-none px-4 py-3 mt-2
-          transition-all duration-150 flex-1 rounded-lg border
+          className="min-w-0 cursor-pointer appearance-none px-4 py-3
+          transition-all duration-150 flex-1 border
           border-slate-700 bg-slate-900  
           text-white outline-none active:border-green-500 hover:bg-slate-800 
           focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"

@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 
 import "./globals.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col max-w-4xl mx-auto">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

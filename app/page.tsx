@@ -12,7 +12,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  function handleResults(data: LuasData) {
+  function handleResults(data: LuasData | null) {
     setResults(data);
   }
 
