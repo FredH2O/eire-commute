@@ -7,7 +7,7 @@ export default function Footer() {
             aria-hidden="true"
             className="h-2 w-2 rounded-full bg-emerald-400"
           />
-          <p className="text-sm font-semibold text-white">Eire Commute</p>
+          <p className="text-sm font-bold text-white">Eire Commute</p>
         </div>
 
         <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm">

@@ -1,14 +1,18 @@
 # Eire Commute
 
-A personal project to help people quickly and clearly check upcoming Luas stops and departures.
+Eire Commute is a personal project built to make checking Luas departure times in Dublin quicker and easier.
 
-The main goal is to build a simple, responsive web application while learning more about:
+When commuting, people often need to check the next departure at their stop while on the move. I wanted to create a simple, mobile friendly interface where users can select a stop and quickly see upcoming departures and destinations without unnecessary steps.
 
-- React patterns
-- Responsive design
-- UI/UX
-- Public APIs
-- Building and structuring web applications
+The goal is to make everyday journeys a little easier through clear information, thoughtful UX decisions and a responsive design.
+
+## Features
+
+- Search for Luas stops using a dropdown
+- View upcoming departures and destinations
+- Keep the selected stop in the URL so it is easier to revisit or share
+- Responsive interface designed with a mobile first approach
+- Loading and error states to provide feedback when requests fail
 
 ## Tech Stack
 
@@ -16,14 +20,19 @@ The main goal is to build a simple, responsive web application while learning mo
 - Next.js
 - TypeScript
 - Tailwind CSS
+- fast xml parser for converting Luas XML responses into JavaScript data
 
-## Libraries
+## What I'm Learning
 
-- XML Parser — used to work with the Luas API data
+This project helps me develop my skills in frontend development, including component design, React state and props, API integration, responsive layouts and UX decisions.
 
 ## Future Plans
 
-- Add Dublin Bus
-- Add Irish Rail
-- Show stop locations on a map
-- Add more useful commute features
+- Add Dublin Bus departures
+- Add Irish Rail departures
+- Explore stop locations on a map
+- Introduce more useful commuting features
+
+## Disclaimer
+
+Eire Commute is an independent personal project and is not affiliated with or endorsed by Luas, Transport Infrastructure Ireland or Transport for Ireland. Departure information may be delayed or inaccurate.
