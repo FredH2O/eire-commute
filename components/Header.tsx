@@ -16,7 +16,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="relative mx-4 mt-4 border border-zinc-800 bg-zinc-900/80 px-5 py-4">
+    <nav className="relative mx-4 mt-4 border border-control-border bg-control-bg px-5 py-4">
       <div className="flex items-center justify-between">
         <Link
           href="/"
@@ -24,14 +24,14 @@ export default function Header() {
           onClick={() => setMenuOpen(false)}
         >
           <Image src={Logo} alt="Eire Commute logo" width={45} />
-          <span className="text-white">Eire Commute</span>
+          <span className="text-foreground">Eire Commute</span>
         </Link>
 
         {/* Desktop navigation */}
         <div className="hidden gap-5 md:flex">
           {navigation.map((item) => (
             <Link key={item.name} href={item.link}>
-              <span className="text-green-500">/</span>
+              <span className="text-brand">/</span>
               {item.name}
             </Link>
           ))}
@@ -40,7 +40,7 @@ export default function Header() {
         {/* Mobile menu button */}
         <button
           type="button"
-          className="rounded p-2 text-white md:hidden"
+          className="rounded p-2 text-foreground md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={
             menuOpen ? "Close navigation menu" : "Open navigation menu"
@@ -56,7 +56,7 @@ export default function Header() {
       {menuOpen && (
         <div
           id="mobile-navigation"
-          className="mt-4 flex flex-col gap-4 border-t border-zinc-800 pt-4 md:hidden"
+          className="mt-4 flex flex-col gap-4 border-t border-control-border pt-4 md:hidden"
         >
           {navigation.map((item) => (
             <Link
@@ -64,7 +64,7 @@ export default function Header() {
               href={item.link}
               onClick={() => setMenuOpen(false)}
             >
-              <span className="text-green-500">/</span>
+              <span className="text-brand">/</span>
               {item.name}
             </Link>
           ))}

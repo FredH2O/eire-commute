@@ -9,6 +9,23 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-silkscreen);
+
+  /* brand identity */
+  --color-brand: #10b981;
+
+  /* form, input, select */
+  --color-control-bg: #0f172a;
+  --color-control-border: #334155;
+  --color-control-hover: #059669;
+
+  /* text */
+  --color-text-muted: #94a3b8; /* slate */
+
+  /* focus */
+  --color-focus: #10b981;
+
+  /* layout */
+  --radius-control: 0.5rem;
 }
 
 body {

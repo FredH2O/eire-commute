@@ -78,7 +78,10 @@ export default function SearchStop({
 
   return (
     <div className="mx-auto mt-8 px-4">
-      <label htmlFor="luas-stop" className="text-sm font-medium text-slate-400">
+      <label
+        htmlFor="luas-stop"
+        className="text-sm font-medium text-text-muted"
+      >
         Select stop
       </label>
 
@@ -87,9 +90,17 @@ export default function SearchStop({
           id="luas-stop"
           className="min-w-0 cursor-pointer appearance-none px-4 py-3
           transition-all duration-150 flex-1 border
-          border-slate-700 bg-slate-900  
-          text-white outline-none active:border-green-500 hover:bg-slate-800 
-          focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+          rounded-control
+          border-control-border 
+          bg-control-bg
+          text-white 
+          outline-none 
+          active:border-brand
+          hover:bg-control-hover 
+          focus-visible:ring-2 
+          focus-visible:ring-brand 
+          focus-visible:ring-offset-2 
+          focus-visible:ring-offset-control-bg"
           value={stop}
           onChange={(event) => handleSearch(event.target.value)}
         >
