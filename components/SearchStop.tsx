@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import type { LuasData } from "@/types/luas";
 import { luasStop } from "@/data/luasStop";
 import { FiChevronDown } from "react-icons/fi";
+import FavouriteStops from "./FavouriteStops";
 
 type SearchStopProps = {
   onResults: (data: LuasData | null) => void;
@@ -78,6 +79,8 @@ export default function SearchStop({
 
   return (
     <div className="mx-auto mt-8 px-4">
+      <FavouriteStops onSelect={handleSearch} />
+
       <label
         htmlFor="luas-stop"
         className="text-sm font-medium text-text-muted"
