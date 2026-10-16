@@ -20,5 +20,19 @@ export function useFavouriteStops() {
     setLoaded(true);
   }, []);
 
-  return { favourites, loaded };
+  function save(next: FavouriteStop[]) {
+    setFavourites(next);
+    localStorage.setItem("favouriteStops", JSON.stringify(next));
+  }
+
+  function addFavourite(fav: FavouriteStop) {
+    if (favourites.some((f) => f.stop === fav.stop)) return;
+    save([...favourites, fav]);
+  }
+
+  function removeFavourite(stop: string) {
+    save(favourites.filter((f) => f.stop !== stop));
+  }
+
+  return { favourites, loaded, addFavourite, removeFavourite };
 }

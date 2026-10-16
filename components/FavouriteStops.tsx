@@ -1,15 +1,18 @@
-// FavouriteStops.tsx
 "use client";
 
-import { useFavouriteStops } from "@/hooks/useFavouriteStops";
+import type { FavouriteStop } from "@/hooks/useFavouriteStops";
 
 type FavouriteStopsProps = {
+  favourites: FavouriteStop[];
+  loaded: boolean;
   onSelect: (stop: string) => void;
 };
 
-export default function FavouriteStops({ onSelect }: FavouriteStopsProps) {
-  const { favourites, loaded } = useFavouriteStops();
-
+export default function FavouriteStops({
+  favourites,
+  loaded,
+  onSelect,
+}: FavouriteStopsProps) {
   if (!loaded) return null;
 
   return (

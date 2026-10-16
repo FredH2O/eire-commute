@@ -6,7 +6,9 @@ import { useRouter } from "next/navigation";
 import type { LuasData } from "@/types/luas";
 import { luasStop } from "@/data/luasStop";
 import { FiChevronDown } from "react-icons/fi";
+import { FaStar, FaRegStar } from "react-icons/fa";
 import FavouriteStops from "./FavouriteStops";
+import { useFavouriteStops } from "@/hooks/useFavouriteStops";
 
 type SearchStopProps = {
   onResults: (data: LuasData | null) => void;
@@ -21,7 +23,21 @@ export default function SearchStop({
 }: SearchStopProps) {
   const [stop, setStop] = useState("");
   const router = useRouter();
+  const { favourites, loaded, addFavourite, removeFavourite } =
+    useFavouriteStops();
 
+  const selectedStop = luasStop.find((item) => item.shortName === stop);
+  const isFavourite = favourites.some((fav) => fav.stop === stop);
+
+  function toggleFavourite() {
+    if (!selectedStop) return;
+
+    if (isFavourite) {
+      removeFavourite(stop);
+    } else {
+      addFavourite({ stop, name: selectedStop.displayName });
+    }
+  }
   // On first load, read ?stopID= from the URL and load that stopppp
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -79,7 +95,11 @@ export default function SearchStop({
 
   return (
     <div className="mx-auto mt-8 px-4">
-      <FavouriteStops onSelect={handleSearch} />
+      <FavouriteStops
+        onSelect={handleSearch}
+        favourites={favourites}
+        loaded={loaded}
+      />
 
       <label
         htmlFor="luas-stop"
@@ -89,6 +109,17 @@ export default function SearchStop({
       </label>
 
       <div className="relative flex gap-2 mt-2">
+        <button
+          type="button"
+          onClick={toggleFavourite}
+          disabled={!stop}
+          aria-label={
+            isFavourite ? "Remove from favourites" : "Add to favourites"
+          }
+          className="rounded-control border border-control-border bg-control-bg px-4 disabled:opacity-40"
+        >
+          {isFavourite ? <FaStar className="text-yellow-400" /> : <FaRegStar />}
+        </button>
         <select
           id="luas-stop"
           className="min-w-0 cursor-pointer appearance-none px-4 py-3
